@@ -10,19 +10,17 @@ namespace Delegate_Exercise
     {
         static void Main(string[] args)
         {
+            CsvHandler ch = new CsvHandler();
+            DataParser dp = new DataParser();
 
+            Func<List<List<string>>, List<List<string>>> x = dp.StripQuotes;
+
+            x += dp.StripWhiteSpace;
+            x += dp.StripHashes;
+
+            ch.ProcessCsv("data.csv", "processed_data.csv", x);
         }
 
-        public static List<List<string>> RemoveHashes(List<List<string>> data) {
-            foreach(var row in data) {
-                for (var index = 0; index < row.Count; index++) {
-                    if(row[index][0] == '#')
-                        row[index] = row[index].Remove(0,1);
- 
-                }
-            }
-            return data;
-            
-        }
+        
     }
 }
